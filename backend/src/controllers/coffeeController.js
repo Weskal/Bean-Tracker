@@ -40,7 +40,7 @@ exports.getCoffeeById = async (req, res) => {
 // Update a coffee by id
 exports.updateCoffeeById = async (req, res) => {
     try {
-        const updatedCoffee = await Coffee.findById(
+        const updatedCoffee = await Coffee.findByIdAndUpdate(
             req.params.id,
             req.body,
             {new: true, runValidators: true}

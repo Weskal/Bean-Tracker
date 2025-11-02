@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { 
   FaCoffee, 
   FaGlobe, 
@@ -15,9 +15,11 @@ import {
 import api from '../services/api';
 import './CreateCoffee.css';
 
-function CreateCoffee() {
+function EditCoffee() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(true);
   const [formProgress, setFormProgress] = useState(0);
   const [flavorTags, setFlavorTags] = useState([]);
   const [errors, setErrors] = useState({});
@@ -29,8 +31,41 @@ function CreateCoffee() {
     brewMethod: '',
     rating: 3,
     notes: '',
-    tastingDate: new Date().toISOString().split('T')[0]
+    tastingDate: ''
   });
+
+  useEffect(() => {
+    fetchCoffee();
+  }, [id]);
+
+  const fetchCoffee = async () => {
+    try {
+      const data = await api.getCoffeeById(id);
+      
+      const formattedDate = new Date(data.tastingDate).toISOString().split('T')[0];
+      
+      setFormData({
+        name: data.name,
+        origin: data.origin,
+        roastLevel: data.roastLevel,
+        flavorNotes: data.flavorNotes.join(', '),
+        brewMethod: data.brewMethod,
+        rating: data.rating,
+        notes: data.notes || '',
+        tastingDate: formattedDate
+      });
+      
+      setFlavorTags(data.flavorNotes);
+      calculateProgress({
+        ...data,
+        flavorNotes: data.flavorNotes.join(', ')
+      });
+      setLoadingData(false);
+    } catch (err) {
+      alert('❌ Erro ao carregar café: ' + err.message);
+      navigate('/coffees');
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +75,6 @@ function CreateCoffee() {
     };
     setFormData(newData);
     
-    // Limpar erro do campo quando o usuário começar a digitar
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -48,13 +82,11 @@ function CreateCoffee() {
       }));
     }
     
-    // Atualizar tags de sabor
     if (name === 'flavorNotes') {
       const tags = value.split(',').map(t => t.trim()).filter(t => t !== '');
       setFlavorTags(tags);
     }
     
-    // Calcular progresso do formulário
     calculateProgress(newData);
   };
 
@@ -73,14 +105,9 @@ function CreateCoffee() {
     setFormProgress(Math.round((filled / total) * 100));
   };
 
-  useEffect(() => {
-    calculateProgress(formData);
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validar campos obrigatórios
     const newErrors = {};
     
     if (!formData.name || formData.name.trim() === '') {
@@ -97,9 +124,7 @@ function CreateCoffee() {
     
     setErrors(newErrors);
     
-    // Se houver erros, não enviar
     if (Object.keys(newErrors).length > 0) {
-      // Scroll para o primeiro erro
       setTimeout(() => {
         const firstErrorField = Object.keys(newErrors)[0];
         if (firstErrorField) {
@@ -124,21 +149,25 @@ function CreateCoffee() {
           .filter(note => note !== '')
       };
 
-      await api.createCoffee(dataToSend);
-      alert('✅ Café avaliado com sucesso!');
-      navigate('/coffees');
+      await api.updateCoffee(id, dataToSend);
+      alert('✅ Café atualizado com sucesso!');
+      window.location.href = `/coffee/${id}`; 
     } catch (err) {
-      alert('❌ Erro ao salvar: ' + err.message);
+      alert('❌ Erro ao atualizar: ' + err.message);
       setLoading(false);
     }
   };
+
+  if (loadingData) {
+    return <div className="loading">☕ Carregando dados...</div>;
+  }
 
   return (
     <div className="create-coffee-page">
       <div className="page-header">
         <button 
           className="back-button"
-          onClick={() => navigate('/coffees')}
+          onClick={() => navigate(`/coffee/${id}`)}
           type="button"
         >
           <FaArrowLeft />
@@ -146,14 +175,13 @@ function CreateCoffee() {
         </button>
         <div className="header-content">
           <div className="header-icon-wrapper">
-            <FaCoffee className="header-icon" />
+            <FaEdit className="header-icon" />
           </div>
-          <h1 className="page-title">Nova Avaliação de Café</h1>
-          <p className="page-subtitle">Preencha os dados abaixo para registrar sua experiência</p>
+          <h1 className="page-title">Editar Avaliação</h1>
+          <p className="page-subtitle">Atualize as informações do seu café</p>
         </div>
       </div>
 
-      {/* Progress Bar */}
       <div className="progress-section">
         <div className="progress-header">
           <span className="progress-label">Progresso do formulário</span>
@@ -380,7 +408,7 @@ function CreateCoffee() {
             ) : (
               <>
                 <FaCheck />
-                <span>Salvar Avaliação</span>
+                <span>Atualizar Avaliação</span>
               </>
             )}
           </button>
@@ -390,4 +418,4 @@ function CreateCoffee() {
   );
 }
 
-export default CreateCoffee;
+export default EditCoffee;

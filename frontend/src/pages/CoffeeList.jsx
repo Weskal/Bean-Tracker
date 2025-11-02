@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaSearch, FaTimes, FaCoffee, FaSpinner } from 'react-icons/fa';
 import api from '../services/api';
 import CoffeeCard from '../components/CoffeeCard';
 import './CoffeeList.css';
@@ -51,18 +52,43 @@ function CoffeeList() {
     navigate(`/coffee/${id}`);
   };
 
-  if (loading) return <div className="loading">☕ Carregando cafés...</div>;
-  if (error) return <div className="error">❌ Erro: {error}</div>;
+  if (loading) {
+    return (
+      <div className="loading">
+        <FaSpinner className="spinner" />
+        <p>Carregando cafés...</p>
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="error">
+        <p>❌ Erro: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="coffee-list-page">
-      <h1 className="page-title">Minhas Avaliações de Café</h1>
+      <div className="page-header">
+        <h1 className="page-title">
+          <FaCoffee className="title-icon" />
+          Minhas Avaliações de Café
+        </h1>
+        {coffees.length > 0 && (
+          <p className="page-subtitle">
+            {filteredCoffees.length} {filteredCoffees.length === 1 ? 'avaliação encontrada' : 'avaliações encontradas'}
+          </p>
+        )}
+      </div>
       
       {coffees.length > 0 && (
         <div className="search-bar">
+          <FaSearch className="search-icon" />
           <input
             type="text"
-            placeholder="🔍 Buscar por nome, origem ou notas de sabor..."
+            placeholder="Buscar por nome, origem ou notas de sabor..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
@@ -71,8 +97,9 @@ function CoffeeList() {
             <button 
               className="clear-search"
               onClick={() => setSearchTerm('')}
+              aria-label="Limpar busca"
             >
-              ✕
+              <FaTimes />
             </button>
           )}
         </div>
@@ -80,17 +107,24 @@ function CoffeeList() {
 
       {filteredCoffees.length === 0 && searchTerm ? (
         <div className="empty-state">
-          <p>☕ Nenhum café encontrado para "{searchTerm}"</p>
+          <FaCoffee className="empty-icon" />
+          <p>Nenhum café encontrado para "{searchTerm}"</p>
+          <p className="empty-hint">Tente buscar por outros termos</p>
         </div>
       ) : filteredCoffees.length === 0 ? (
         <div className="empty-state">
-          <p>☕ Nenhum café avaliado ainda.</p>
-          <p>Que tal adicionar sua primeira avaliação?</p>
+          <FaCoffee className="empty-icon" />
+          <p>Nenhum café avaliado ainda.</p>
+          <p className="empty-hint">Que tal adicionar sua primeira avaliação?</p>
         </div>
       ) : (
         <div className="coffee-grid">
-          {filteredCoffees.map(coffee => (
-            <div key={coffee._id} onClick={() => handleCardClick(coffee._id)}>
+          {filteredCoffees.map((coffee, index) => (
+            <div 
+              key={coffee._id} 
+              onClick={() => handleCardClick(coffee._id)}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <CoffeeCard 
                 coffee={coffee} 
                 onDelete={handleDelete}

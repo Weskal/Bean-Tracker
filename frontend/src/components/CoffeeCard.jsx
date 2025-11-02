@@ -1,8 +1,14 @@
+import { FaCalendarAlt, FaGlobe, FaFire, FaCoffee, FaStar } from 'react-icons/fa';
 import './CoffeeCard.css';
 
 function CoffeeCard({ coffee, onDelete }) {
   const renderStars = (rating) => {
-    return '⭐'.repeat(rating) + '☆'.repeat(5 - rating);
+    return Array.from({ length: 5 }, (_, i) => (
+      <FaStar 
+        key={i} 
+        className={i < rating ? 'star-filled' : 'star-empty'}
+      />
+    ));
   };
 
   const formatDate = (dateString) => {
@@ -18,33 +24,43 @@ function CoffeeCard({ coffee, onDelete }) {
 
   return (
     <div className="coffee-card">
-      {/* <button className="delete-btn" onClick={handleDelete} title="Excluir">
-        🗑️
-      </button> */}
-
       <div className="coffee-card-header">
         <h3 className="coffee-name">{coffee.name}</h3>
-        <span className="coffee-rating">{renderStars(coffee.rating)}</span>
+        <div className="coffee-rating">
+          {renderStars(coffee.rating)}
+        </div>
       </div>
       
       <div className="coffee-info">
         <div className="info-item">
-          <span className="info-label">📅 Degustado em:</span>
+          <span className="info-label">
+            <FaCalendarAlt className="info-icon" />
+            Degustado em:
+          </span>
           <span className="info-value">{formatDate(coffee.tastingDate)}</span>
         </div>
 
         <div className="info-item">
-          <span className="info-label">🌍 Origem:</span>
+          <span className="info-label">
+            <FaGlobe className="info-icon" />
+            Origem:
+          </span>
           <span className="info-value">{coffee.origin}</span>
         </div>
         
         <div className="info-item">
-          <span className="info-label">🔥 Torra:</span>
+          <span className="info-label">
+            <FaFire className="info-icon" />
+            Torra:
+          </span>
           <span className="info-value">{coffee.roastLevel}</span>
         </div>
         
         <div className="info-item">
-          <span className="info-label">☕ Método:</span>
+          <span className="info-label">
+            <FaCoffee className="info-icon" />
+            Método:
+          </span>
           <span className="info-value">{coffee.brewMethod}</span>
         </div>
       </div>

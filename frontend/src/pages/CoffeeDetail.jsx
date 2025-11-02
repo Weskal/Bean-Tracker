@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
 import './CoffeeDetail.css';
 
 function CoffeeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [coffee, setCoffee] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchCoffee();
-  }, [id]);
+  }, [id, location.search]);
 
   const fetchCoffee = async () => {
     try {
@@ -35,6 +36,10 @@ function CoffeeDetail() {
         alert('❌ Erro ao excluir: ' + err.message);
       }
     }
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit/${id}`);
   };
 
   const renderStars = (rating) => {
@@ -117,6 +122,9 @@ function CoffeeDetail() {
         )}
 
         <div className="detail-actions">
+          <button className="btn btn-edit" onClick={handleEdit}>
+            ✏️ Editar Avaliação
+          </button>
           <button className="btn btn-danger" onClick={handleDelete}>
             🗑️ Excluir Avaliação
           </button>

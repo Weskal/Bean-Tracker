@@ -166,3 +166,49 @@
     text-align: left;
   }
 }
+
+/* Atualize .detail-actions */
+.detail-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;  /* ← Adicione gap */
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid var(--coffee-cream);
+}
+
+/* Adicione o estilo do botão edit */
+.btn-edit {
+  background-color: var(--coffee-medium);
+  color: var(--white);
+}
+
+.btn-edit:hover {
+  background-color: var(--coffee-dark);
+}
+
+/* Atualize o media query */
+@media (max-width: 768px) {
+  .detail-card {
+    padding: 24px;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .detail-rating {
+    text-align: left;
+  }
+
+  /* ← Adicione essas linhas */
+  .detail-actions {
+    flex-direction: column;
+  }
+
+  .btn-edit,
+  .btn-danger {
+    width: 100%;
+  }
+}

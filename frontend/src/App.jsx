@@ -3,7 +3,8 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CoffeeList from './pages/CoffeeList';
 import CreateCoffee from './pages/CreateCoffee';
-import CoffeeDetail from './pages/CoffeeDetail';  // ← Adicione
+import CoffeeDetail from './pages/CoffeeDetail';  
+import EditCoffee from './pages/EditCoffee';
 import './App.css';
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/coffees" element={<CoffeeList />} />
           <Route path="/create" element={<CreateCoffee />} />
-          <Route path="/coffee/:id" element={<CoffeeDetail />} />  {/* ← Adicione */}
+          <Route path="/coffee/:id" element={<CoffeeDetail />} />
+          <Route path="/edit/:id" element={<EditCoffee />} /> 
         </Routes>
       </main>
     </BrowserRouter>
