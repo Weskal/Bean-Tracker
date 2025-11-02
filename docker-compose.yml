@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: beantracker-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - beantracker-network
+    healthcheck:
+      test: mongosh --eval "db.adminCommand('ping')" --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  app:
+      env_file:
+        - .env
+      build: ./backend
+      container_name: beantracker-app
+      ports: 
+        - "3000:3000"
+      depends_on:
+        mongodb:
+          condition: service_healthy
+      environment:
+        - PORT=${PORT}
+        - MONGO_URI=${MONGO_URI}
+      volumes:
+      # Allow the container to access the source code on the host machine and reflect changes without rebuilding
+        - ./backend:/app
+        - /app/node_modules
+      networks:
+      # Connect to the same network as MongoDB
+        - beantracker-network
+
+volumes:
+  mongo-data:
+
+networks:
+  beantracker-network:
+    # Same as VNetwork
+    driver: bridge

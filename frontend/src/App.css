@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --coffee-cream: #F5E6D3;
+  --coffee-light: #D4A574;
+  --coffee-medium: #8B4513;
+  --coffee-dark: #3E2723;
+  --accent: #C7956D;
+  --white: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--coffee-cream);
+  color: var(--coffee-dark);
+  margin: 0;      /* Garante 0 */
+  padding: 0;     /* Garante 0 */
+  overflow-x: hidden;  /* Evita scroll horizontal */
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Botões */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: var(--coffee-medium);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--coffee-dark);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--coffee-cream);
+  color: var(--coffee-dark);
+}
+
+.btn-secondary:hover {
+  background-color: var(--coffee-light);
+}
+
+.btn-danger {
+  background-color: #d32f2f;
+  color: var(--white);
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c;
+}

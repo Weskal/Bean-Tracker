@@ -1,0 +1,108 @@
+.coffee-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(62, 39, 35, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;  /* Para posicionar o botão delete */
+}
+
+.coffee-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(62, 39, 35, 0.15);
+  border-color: var(--accent);
+}
+
+.delete-btn {
+  position: absolute;
+  bottom: 25px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 4px;
+  line-height: 1;
+}
+
+.coffee-card:hover .delete-btn {
+  opacity: 1;
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+}
+
+.coffee-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--coffee-cream);
+}
+
+.coffee-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--coffee-dark);
+  margin: 0;
+  padding-right: 40px;  /* Espaço para o botão delete */
+}
+
+.coffee-rating {
+  font-size: 18px;
+}
+
+.coffee-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--coffee-medium);
+  font-size: 14px;
+}
+
+.info-value {
+  color: var(--coffee-dark);
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.flavor-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.flavor-tag {
+  background-color: var(--coffee-light);
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.coffee-notes {
+  font-size: 14px;
+  color: var(--coffee-medium);
+  font-style: italic;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--coffee-cream);
+}

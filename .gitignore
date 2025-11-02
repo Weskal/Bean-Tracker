@@ -2,4 +2,21 @@
 node_modules
 package-lock.json
 package.json
-npm-debug.log
+
+# Logs
+npm-debug.log*
+*.log
+
+# Build do React
+frontend/dist/
+frontend/build/
+
+# Cache e temporários
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker volumes (dados do MongoDB)
+mongo-data/

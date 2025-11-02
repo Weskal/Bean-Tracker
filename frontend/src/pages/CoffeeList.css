@@ -1,0 +1,85 @@
+.coffee-list-page {
+  padding: 40px 0;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--coffee-dark);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.search-bar {
+  max-width: 600px;
+  margin: 0 auto 32px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 16px 48px 16px 16px;
+  border: 2px solid var(--coffee-light);
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--coffee-medium);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+}
+
+.clear-search {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--coffee-light);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.clear-search:hover {
+  background: var(--coffee-medium);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.coffee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.coffee-grid > div {
+  cursor: pointer;
+}
+
+.loading, .error {
+  text-align: center;
+  font-size: 20px;
+  padding: 60px 20px;
+  color: var(--coffee-medium);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  font-size: 18px;
+  color: var(--coffee-medium);
+}
+
+.empty-state p {
+  margin: 8px 0;
+}
