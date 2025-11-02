@@ -1,6 +1,6 @@
 # BeanTracker ☕
 
-Sistema de rastreamento e avaliação de cafés especiais desenvolvido com Node.js, React, MongoDB e Docker.
+Sistema de rastreamento e avaliação de cafés e grãos especiais desenvolvido com Node.js, React, MongoDB e Docker.
 
 ![BeanTracker](https://img.shields.io/badge/Status-Concluído-success)
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-green)
