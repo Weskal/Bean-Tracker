@@ -229,9 +229,9 @@ function CreateCoffee() {
                 onChange={handleChange}
                 className={formData.roastLevel ? 'filled' : ''}
               >
-                <option value="light">Clara</option>
-                <option value="medium">Média</option>
-                <option value="dark">Escura</option>
+                <option value="light">Light</option>
+                <option value="medium">Medium</option>
+                <option value="dark">Dark</option>
               </select>
               {formData.roastLevel && <FaCheck className="input-check" />}
             </div>

@@ -74,7 +74,7 @@ function CoffeeList() {
       <div className="page-header">
         <h1 className="page-title">
           <FaCoffee className="title-icon" />
-          Minhas Avaliações de Café
+          Avaliações de Café
         </h1>
         {coffees.length > 0 && (
           <p className="page-subtitle">
