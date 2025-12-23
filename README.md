@@ -338,7 +338,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 
 ## 👤 Autor
 
-**Seu Nome**
+**Gabriel Paliato**
 
 - GitHub: [@Weskal](https://github.com/Weskal)
 - LinkedIn: [Gabriel Paliato](https://www.linkedin.com/in/gabriel-paliato-49467b211/)
